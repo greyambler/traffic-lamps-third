@@ -1,0 +1,79 @@
+html,
+body {
+    height: 90%;
+}
+
+h1 {
+    text-align: center;
+    font-style: italic;
+}
+
+.root {
+    display: flex;
+    width  : 100%;
+}
+
+.buttot-div {
+    display       : flex;
+    flex-direction: column;
+    width         : 150px;
+    padding       : 7px;
+    margin-right  : 25px;
+    border        : 1px solid gray;
+}
+
+.btn {
+    margin-bottom: 3px;
+}
+
+
+.traffic {
+    width         : 70px;
+    height        : auto;
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+    box-sizing    : border-box;
+    padding       : 10px 0;
+    margin-right  : 20px;
+
+    border: 1px solid red;
+}
+
+
+.all_light {
+    display         : flex;
+    flex-direction  : column;
+    align-items     : center;
+    justify-content : center;
+    width           : 60%;
+    height          : 40px;
+    opacity         : 1;
+    cursor          : pointer;
+    background-color: black;
+
+    
+}
+
+.lampa-light {
+    width        : 2rem;
+    height       : 2rem;
+    border       : 2px solid black;
+    border-radius: 50%;
+    opacity      : 0.1;
+}
+
+.property h3 {
+    width     : 120px;
+    margin    : 0;
+    padding   : 0;
+    text-align: center;
+}
+
+.property {
+    display        : flex;
+    flex-direction : column;
+    align-items    : center;
+    justify-content: flex-start;
+
+}

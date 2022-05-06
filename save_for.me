@@ -1,0 +1,92 @@
+=> https://webpack.js.org/guides/typescript/
+=> https://webpack.js.org/guides/getting-started/
+=> https://habr.com/ru/post/514838/
+
+//Создание проекта с typescript и все
+
+npm init [-y]
+npm i -D webpack webpack-cli webpack-dev-server svg-inline-loader style-loader css-loader babel-loader html-webpack-plugin typescript ts-loader @types/lodash clean-webpack-plugin
+
+webpack.config.js
+tsconfig.json [tsc --init]
+
+       src
+          index.tsx =>
+            import "./styles.css";
+          index.html =>
+              !
+          styles.css =>
+              html,
+              body {
+                height: 100%;
+              }
+
+
+
+package.json =>
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV='production' webpack",
+    "start": "webpack-dev-server"
+  },
+
+
+
+webpack.config.js =>
+
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+module.exports = {
+  entry: "./src/index.tsx",
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+  devServer: {
+    port: 3001,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+      { test: /\.svg$/, use: "svg-inline-loader" },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      { test: /\.(js)$/, use: "babel-loader" },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
+    new CleanWebpackPlugin(),
+  ],
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "index_bundle.[chunkhash].js",
+  },
+};
+
+
+
+tsconfig.json =>
+   
+    {
+    "compilerOptions": {
+      "outDir": "./dist/",
+      "noImplicitAny": true,
+      "module": "es6",
+      "target": "es5",
+      "jsx": "react",
+      "allowJs": true,
+      "moduleResolution": "node"
+    }
+  }
+
+  npm run build
