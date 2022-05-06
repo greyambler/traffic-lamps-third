@@ -1,4 +1,4 @@
 import "./styles.css";
-import { MainFild } from "./controls/mainFild";
+import { HomePage } from "./components/homePage";
 
-const main = new MainFild();
+new HomePage();
