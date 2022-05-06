@@ -5,7 +5,7 @@ import {
   saveLampaHandleClick,
   loadLampaHandleClick,
   startLampaHandleClick,
-} from "../../actions";
+} from "../../actions/buttonsAct";
 import { IButton } from "../../interfaces/index.d";
 import { TrafficDiv } from "../trafficDiv";
 

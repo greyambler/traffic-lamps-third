@@ -1,3 +1,4 @@
+import { saveCurrentLamps } from "../../actions/localStr";
 import { Lampa } from "../lampa";
 
 export class TrafficDiv {
@@ -74,7 +75,7 @@ export class TrafficDiv {
           }
         }
 
-        // this.saveTackLamp(timeend);
+        saveCurrentLamps(this.currentIndexLight, timeend);
         this.turnOnLight(this.currentIndexLight);
       }
     }

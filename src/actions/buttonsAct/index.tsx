@@ -1,4 +1,5 @@
-import { TrafficDiv } from "../controls/trafficDiv";
+import { Lampa } from "../../controls/lampa";
+import { TrafficDiv } from "../../controls/trafficDiv";
 
 export function addLampaHandleClick(trafficDiv: any) {
   trafficDiv.appLampa();
@@ -8,12 +9,33 @@ export function delLampaHandleClick(trafficDiv: any) {
   trafficDiv.delLampa();
 }
 
-export function saveLampaHandleClick(event: any) {
-  console.log(`saveLampaHandleClick`, event);
+export function saveLampaHandleClick(trafficDiv: any) {
+  localStorage.setItem("listLamps", JSON.stringify(trafficDiv.lamps));
+  console.log(`saveLampaHandleClick`, trafficDiv);
 }
 
-export function loadLampaHandleClick(event: any) {
-  console.log(`loadLampaHandleClick`, event);
+export function loadLampaHandleClick(trafficDiv: any) {
+  const lampsLoad = localStorage.getItem("listLamps");
+
+  console.log("lampsLoad", lampsLoad);
+
+  console.log("trafficDiv", trafficDiv);
+
+  Array.from(lampsLoad).forEach((item) => {
+    // console.log("item", item);
+    // trafficDiv.lamps.appLampa(
+    //   new Lampa(item.idlampa, item.backcolor, item.timeInterval)
+    // );
+  });
+
+  // const lampsLoadMassiv = JSON.parse(lampsLoad);
+  // console.log("lampsLoad parse", lampsLoadMassiv);
+  // trafficDiv.cleanAll();
+
+  // Array.from(lampsLoadMassiv).forEach((item) => {
+  //   trafficDiv.loadLampa(item);
+  // });
+  // console.log(`loadLampaHandleClick`, trafficDiv);
 }
 
 let timerId: NodeJS.Timeout = null;
@@ -30,7 +52,7 @@ export function startLampaHandleClick(trafficDiv: any) {
     );
     if (!trafficDiv.isTheadRun) {
       clearInterval(timerId);
-      
+
       // if (lampsProperty) {
       //   lampsProperty.innerHTML = "";
       // }
