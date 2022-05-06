@@ -1,2 +1,8 @@
-# traffic-lamps-third
-Третий проект светофора голым JS и TypeScript
+# Проект тестовый
+
+## Создан в процессе изучения JS и TypeScript
+
+###  HTML & CSS & JS & TypeScript
+
+
+[HTML & CSS & JS & TypeScript]().
