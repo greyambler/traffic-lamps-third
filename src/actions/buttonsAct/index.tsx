@@ -64,6 +64,6 @@ export function startLampaHandleClick(trafficDiv: any) {
     }
   } else {
     trafficDiv.isTheadRun = false;
-    console.log("В свнтофоре нет ламп !!!".toUpperCase());
+    console.log("В светофоре нет ламп !!!".toUpperCase());
   }
 }
