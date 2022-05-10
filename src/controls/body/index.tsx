@@ -11,7 +11,7 @@ export class BodyDiv {
     this.el.className = "body-div";
 
     this.trafficDiv = new TrafficDiv();
-    console.log(`appLampa`, this.trafficDiv);
+    // console.log(`appLampa`, this.trafficDiv);
     this.buttonsDiv = new ButtonsDiv(this.trafficDiv);
 
     this.addDiv();

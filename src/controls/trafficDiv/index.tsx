@@ -27,10 +27,17 @@ export class TrafficDiv {
 
   public appLampa() {
     const lampa = new Lampa(this.lamps.length);
+    this.appLampaNew(lampa)
+    // this.lamps.push(lampa);
+    // this.reDraw();
+  }
+
+  public appLampaNew(lampa : Lampa ) {
 
     this.lamps.push(lampa);
     this.reDraw();
   }
+
 
   public delLampa() {
     this.lamps.splice(this.lamps.length - 1, 1);

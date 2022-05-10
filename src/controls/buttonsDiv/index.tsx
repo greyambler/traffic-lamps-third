@@ -30,7 +30,7 @@ export class ButtonsDiv {
   trafficDiv: TrafficDiv;
 
   constructor(trafficDiv: TrafficDiv) {
-    console.log(`trafficDiv`, trafficDiv);
+    // console.log(`trafficDiv`, trafficDiv);
     this.count = 0;
     this.trafficDiv = trafficDiv;
     this.el = document.createElement("div");

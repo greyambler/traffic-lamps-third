@@ -10,32 +10,17 @@ export function delLampaHandleClick(trafficDiv: any) {
 }
 
 export function saveLampaHandleClick(trafficDiv: any) {
+  // console.log(`saveLampaHandleClick`, JSON.stringify(trafficDiv.lamps));
   localStorage.setItem("listLamps", JSON.stringify(trafficDiv.lamps));
-  console.log(`saveLampaHandleClick`, trafficDiv);
 }
 
 export function loadLampaHandleClick(trafficDiv: any) {
-  const lampsLoad = localStorage.getItem("listLamps");
-
-  console.log("lampsLoad", lampsLoad);
-
-  console.log("trafficDiv", trafficDiv);
-
-  Array.from(lampsLoad).forEach((item) => {
-    // console.log("item", item);
-    // trafficDiv.lamps.appLampa(
-    //   new Lampa(item.idlampa, item.backcolor, item.timeInterval)
-    // );
+  const lampsLoad = JSON.parse(localStorage.getItem("listLamps"));
+  trafficDiv.lamps = []
+  Array.from(lampsLoad).forEach((item: Lampa) => {
+    console.log("item", item);
+    trafficDiv.appLampaNew(new Lampa(item.idLampa, item.backcolor, item.timeInterval))
   });
-
-  // const lampsLoadMassiv = JSON.parse(lampsLoad);
-  // console.log("lampsLoad parse", lampsLoadMassiv);
-  // trafficDiv.cleanAll();
-
-  // Array.from(lampsLoadMassiv).forEach((item) => {
-  //   trafficDiv.loadLampa(item);
-  // });
-  // console.log(`loadLampaHandleClick`, trafficDiv);
 }
 
 let timerId: NodeJS.Timeout = null;

@@ -11,7 +11,7 @@ export class Lampa {
     this.idLampa = idlampa;
     this.timeInterval = timeInterval ? timeInterval : 1;
     this.backcolor = backcolor ? backcolor : this.getColorNoStart(idlampa);
-
+    
     this.creatDivBase();
     this.creatDivLight();
     this.divBase.appendChild(this.divLampa);
