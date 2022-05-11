@@ -1,7 +1,3 @@
-export const getRootDiv = () => {
+export const getRootDiv = (): HTMLElement => {
   return document.getElementById("root");
 };
-
-// export const getTraffic = () => {
-//   return getRootDiv().querySelector("#traffic-div");
-// };

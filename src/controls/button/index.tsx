@@ -1,5 +1,9 @@
-export class Button {
+import { IButton } from "../../interfaces/index.d";
+
+export class Button implements IButton {
   el: HTMLButtonElement;
+  title: string;
+  func: any;
 
   constructor(text: string, handleClick: any) {
     this.el = document.createElement("button");

@@ -1,11 +1,12 @@
+import { ILampa, IProperty } from "../../interfaces/index.d";
 import { Lampa } from "../lampa";
-import { TrafficDiv } from "../trafficDiv";
+import { Traffic } from "../traffic";
 
-export class PropertyDiv {
+export class Property implements IProperty {
   el: HTMLDivElement;
-  lampaCurrent: Lampa;
+  lampaCurrent: ILampa;
 
-  constructor(lampa: Lampa) {
+  constructor(lampa: ILampa) {
     this.lampaCurrent = lampa;
     this.el = document.createElement("div");
     this.el.className = "property-div";
@@ -36,20 +37,18 @@ export class PropertyDiv {
 
     this.el.append(timeLight);
 
-    if (TrafficDiv.isPause) {
+    if (Traffic.isPause) {
       const labellightTime = document.createElement("label");
       labellightTime.textContent = "Пауза";
       this.el.append(labellightTime);
     }
-
-    // const textllightColor = document.createElement("label");
-    // textllightColor.textContent = Traffic.isPause ? "Пауза" : "";
-    // lampsProperty.append(textllightColor);
   }
+
+  static inputElement(lampa: Lampa) {
+    return new Property(lampa).getElement;
+  }
+
   get getElement() {
     return this.el;
-  }
-  static inputElement(lampa: Lampa) {
-    return new PropertyDiv(lampa).getElement;
   }
 }

@@ -1,3 +1,5 @@
+import { ITraffic, IButtons } from "../../interfaces/index.d";
+
 import { Button } from "../button";
 import {
   addLampaHandleClick,
@@ -5,13 +7,11 @@ import {
   saveLampaHandleClick,
   loadLampaHandleClick,
   startLampaHandleClick,
-} from "../../actions/buttons";
+} from "../../actions";
 import { IButton } from "../../interfaces/index.d";
-import { TrafficDiv } from "../trafficDiv";
 
-export class ButtonsDiv {
+export class Buttons implements IButtons {
   el: HTMLDivElement;
-  // count: number;
 
   actionBtn: IButton[] = [
     {
@@ -27,11 +27,9 @@ export class ButtonsDiv {
     { title: "Старт/Стоп", func: () => startLampaHandleClick(this.trafficDiv) },
   ];
 
-  trafficDiv: TrafficDiv;
+  trafficDiv: ITraffic;
 
-  constructor(trafficDiv: TrafficDiv) {
-    // console.log(`trafficDiv`, trafficDiv);
-    // this.count = 0;
+  constructor(trafficDiv: ITraffic) {
     this.trafficDiv = trafficDiv;
     this.el = document.createElement("div");
     this.el.className = "buttot-div";

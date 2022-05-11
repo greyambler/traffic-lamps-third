@@ -1,31 +1,33 @@
-import { ButtonsDiv } from "../buttons";
-import { TrafficDiv } from "../trafficDiv";
-// import { PropertyDiv } from "../propertyDiv";
+import { IMain, ITraffic, IButtons } from "../../interfaces/index.d";
+import { Buttons } from "../buttons";
+import { Traffic } from "../traffic";
 
-export class BodyDiv {
+export class Main implements IMain {
   el: HTMLDivElement;
-  trafficDiv: TrafficDiv;
-  buttonsDiv;
+  traffic: ITraffic;
+  buttons: IButtons;
+
   constructor() {
     this.el = document.createElement("div");
     this.el.className = "body-div";
     this.el.id = "body-div";
 
-    this.trafficDiv = new TrafficDiv();
-    // console.log(`appLampa`, this.trafficDiv);
-    this.buttonsDiv = new ButtonsDiv(this.trafficDiv);
+    this.traffic = new Traffic();
+    this.buttons = new Buttons(this.traffic);
 
     this.addDiv();
   }
+
+  static inputElement() {
+    return new Main().getElement;
+  }
+
   get getElement() {
     return this.el;
   }
-  static inputElement() {
-    return new BodyDiv().getElement;
-  }
+
   private addDiv() {
-    this.el.append(this.buttonsDiv.getElement);
-    this.el.append(this.trafficDiv.getElement);
-    //this.el.append(PropertyDiv.inputElement());
+    this.el.append(this.buttons.getElement);
+    this.el.append(this.traffic.getElement);
   }
 }

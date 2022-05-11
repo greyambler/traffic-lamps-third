@@ -1,12 +1,12 @@
 import { getRootDiv } from "../../lib/utils";
-import { HeaderDiv } from "../../controls/header";
-import { BodyDiv } from "../../controls/main";
+import { Header } from "../../controls/header";
+import { Main } from "../../controls/main";
 
 export class HomePage {
   constructor() {
     const root = getRootDiv();
 
-    root.append(HeaderDiv.inputElement());
-    root.append(BodyDiv.inputElement());
+    root.append(Header.inputElement());
+    root.append(Main.inputElement());
   }
 }

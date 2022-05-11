@@ -1,14 +1,15 @@
-import { saveCurrentLamps } from "../../actions/localStr";
+import { getItemCurLampa, saveCurrentLamps } from "../../database";
+import { ILampa, ILampaMain, ITraffic } from "../../interfaces/index.d";
 import { Lampa } from "../lampa";
 
-export class TrafficDiv {
+export class Traffic implements ITraffic {
   static timeTact: number = 500;
   static timeStepMin: number = 1000;
+  static isPause: boolean = false;
 
   el: HTMLDivElement;
-  public lamps: Lampa[] = [];
-  public isTheadRun: boolean = false;
-  static isPause: boolean = false;
+  lamps: ILampa[] = [];
+  isTheadRun: boolean = false;
   currentIndexLight: number;
 
   constructor() {
@@ -18,32 +19,30 @@ export class TrafficDiv {
     this.currentIndexLight = 0;
   }
 
+  static inputElement() {
+    return new Traffic().getElement;
+  }
+
   get getElement() {
     return this.el;
   }
-  static inputElement() {
-    return new TrafficDiv().getElement;
-  }
 
-  public appLampa() {
+  appLampa() {
     const lampa = new Lampa(this.lamps.length, this);
-
     this.appLampaNew(lampa);
-    // this.lamps.push(lampa);
-    // this.reDraw();
   }
 
-  public appLampaNew(lampa: Lampa) {
+  appLampaNew(lampa: Lampa) {
     this.lamps.push(lampa);
     this.reDraw();
   }
 
-  public delLampa() {
+  delLampa() {
     this.lamps.splice(this.lamps.length - 1, 1);
     this.reDraw();
   }
 
-  public reDraw() {
+  reDraw() {
     this.el.innerHTML = "";
     this.lamps.forEach((item) => {
       this.el.append(item.getElement);
@@ -51,23 +50,23 @@ export class TrafficDiv {
   }
 
   getTimeEnd(): number {
-    let timeend = TrafficDiv.timeStepMin;
-    const curLampa = JSON.parse(localStorage.getItem("curLampa"));
+    let timeend = Traffic.timeStepMin;
+    const curLampa = getItemCurLampa();
 
     if (curLampa) {
-      timeend = curLampa.timeCur;
+      timeend = curLampa.timeInterval;
       this.currentIndexLight = curLampa.idLampa;
     } else {
       this.currentIndexLight = 0;
     }
 
-    timeend = timeend - TrafficDiv.timeTact;
+    timeend = timeend - Traffic.timeTact;
 
     return timeend;
   }
 
-  public switchLight(): void {
-    if (!TrafficDiv.isPause) {
+  switchLight(): void {
+    if (!Traffic.isPause) {
       if (this.lamps.length > 0) {
         let timeend = this.getTimeEnd();
         console.log("switchLight");
@@ -81,7 +80,11 @@ export class TrafficDiv {
           }
         }
 
-        saveCurrentLamps(this.currentIndexLight, timeend);
+        saveCurrentLamps({
+          idLampa: this.currentIndexLight,
+          backcolor: this.lamps[this.currentIndexLight].backcolor,
+          timeInterval: timeend,
+        });
         this.turnOnLight(this.currentIndexLight);
       }
     }
@@ -98,16 +101,13 @@ export class TrafficDiv {
   }
 
   onPauseTimer(cLampa: Lampa) {
-    // console.log("cLampa", cLampa);
-    // console.log("TrafficDiv", this);
-
     if (this.currentIndexLight === cLampa.idLampa && this.isTheadRun) {
-      TrafficDiv.isPause = !TrafficDiv.isPause;
-      console.log(
-        `onMouseover - ${TrafficDiv.isPause ? "Pause" : "Start"} index = ${
-          cLampa.idLampa
-        }`
-      );
+      Traffic.isPause = !Traffic.isPause;
+      // console.log(
+      //   `onMouseover - ${Traffic.isPause ? "Pause" : "Start"} index = ${
+      //     cLampa.idLampa
+      //   }`
+      // );
     }
   }
 }

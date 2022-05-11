@@ -1,4 +1,6 @@
-export class HeaderDiv {
+import { IHeader } from "../../interfaces/index.d";
+
+export class Header implements IHeader {
   el: HTMLDivElement;
 
   constructor() {
@@ -10,6 +12,6 @@ export class HeaderDiv {
     return this.el;
   }
   static inputElement() {
-    return new HeaderDiv().getElement;
+    return new Header().getElement;
   }
 }

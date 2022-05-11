@@ -1,20 +1,20 @@
-import { PropertyDiv } from "../property";
-import { TrafficDiv } from "../trafficDiv";
+import { ILampa, ITraffic } from "../../interfaces/index.d";
+import { Property } from "../property";
+import { Traffic } from "../traffic";
 
-export class Lampa {
+export class Lampa implements ILampa{
+  idLampa: number;
+  backcolor: string;
+  timeInterval: number;
+  traffic: ITraffic;
+
   el: HTMLDivElement;
-  public idLampa: number;
-  public backcolor: string;
-  public timeInterval: number;
-
-  public divBase: HTMLDivElement;
-  public divLampa: HTMLDivElement;
-
-  traffic: TrafficDiv;
+  divBase: HTMLDivElement;
+  divLampa: HTMLDivElement;
 
   constructor(
     idlampa: number,
-    traffic: TrafficDiv,
+    traffic: ITraffic,
     backcolor?: string,
     timeInterval?: number
   ) {
@@ -27,9 +27,11 @@ export class Lampa {
     this.creatDivLight();
     this.divBase.appendChild(this.divLampa);
   }
+
   get getElement() {
     return this.divBase;
   }
+
   static inputElement(idlampa: number, onPauseTimer: any) {
     return new Lampa(idlampa, onPauseTimer).getElement;
   }
@@ -46,7 +48,6 @@ export class Lampa {
     this.divLampa.id = "lampa-light" + this.idLampa;
     this.divLampa.style.background = this.backcolor;
     this.divLampa?.addEventListener("click", () => this.showProperty());
-
     this.divLampa?.addEventListener("mouseover", () => this.onMouseover());
   }
 
@@ -77,17 +78,14 @@ export class Lampa {
   showProperty() {
     const el_old = document.getElementsByClassName("property-div");
     if (el_old) Array.from(el_old).forEach((item) => item.remove());
-
     const el = document.getElementById("body-div");
-
-    el.append(PropertyDiv.inputElement(this));
+    el.append(Property.inputElement(this));
   }
 
   updateFirst(event: Event) {
     const colorIn = (event.target as HTMLInputElement).value;
     this.backcolor = colorIn;
     this.divLampa.style.background = colorIn;
-    // console.log(`event - ${event}`);
   }
 
   updateTime(event: Event) {
@@ -95,7 +93,6 @@ export class Lampa {
       const colorIn = (event.target as HTMLInputElement).value;
       this.timeInterval = parseInt(colorIn);
     } catch (error) {}
-    // console.log(`id - ${this.idLampa}, timeInterval - ${this.timeInterval}`);
   }
 
   onMouseover() {
