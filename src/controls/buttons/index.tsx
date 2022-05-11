@@ -1,30 +1,41 @@
-import { ITraffic, IButtons } from "../../interfaces/index.d";
+import { ITraffic, IButtons, IActions } from "../../interfaces/index.d";
 
 import { Button } from "../button";
 import {
-  addLampaHandleClick,
-  delLampaHandleClick,
-  saveLampaHandleClick,
-  loadLampaHandleClick,
-  startLampaHandleClick,
+  // addLampaHandleClick,
+  // delLampaHandleClick,
+  // saveLampaHandleClick,
+  // loadLampaHandleClick,
+  // startLampaHandleClick,
+  Actions,
 } from "../../actions";
 import { IButton } from "../../interfaces/index.d";
 
 export class Buttons implements IButtons {
   el: HTMLDivElement;
+  actions: IActions;
 
   actionBtn: IButton[] = [
     {
       title: "Добавить лампу",
-      func: () => addLampaHandleClick(this.trafficDiv),
+      func: () => this.actions.addLampaHandleClick(this.trafficDiv),
     },
     {
       title: "Удалить лампу",
-      func: () => delLampaHandleClick(this.trafficDiv),
+      func: () => this.actions.delLampaHandleClick(this.trafficDiv),
     },
-    { title: "Сохранить", func: () => saveLampaHandleClick(this.trafficDiv) },
-    { title: "Загрузить", func: () => loadLampaHandleClick(this.trafficDiv) },
-    { title: "Старт/Стоп", func: () => startLampaHandleClick(this.trafficDiv) },
+    {
+      title: "Сохранить",
+      func: () => this.actions.saveLampaHandleClick(this.trafficDiv),
+    },
+    {
+      title: "Загрузить",
+      func: () => this.actions.loadLampaHandleClick(this.trafficDiv),
+    },
+    {
+      title: "Старт/Стоп",
+      func: () => this.actions.startLampaHandleClick(this.trafficDiv),
+    },
   ];
 
   trafficDiv: ITraffic;
@@ -34,6 +45,7 @@ export class Buttons implements IButtons {
     this.el = document.createElement("div");
     this.el.className = "buttot-div";
     this.addButtons(this.actionBtn);
+    this.actions = new Actions();
   }
 
   get getElement() {

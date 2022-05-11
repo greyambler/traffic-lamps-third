@@ -1,5 +1,5 @@
-import { getItemCurLampa, saveCurrentLamps } from "../../database";
-import { ILampa, ILampaMain, ITraffic } from "../../interfaces/index.d";
+import { DataBaseLocal } from "../../database";
+import { ILampa, ITraffic } from "../../interfaces/index.d";
 import { Lampa } from "../lampa";
 
 export class Traffic implements ITraffic {
@@ -12,11 +12,14 @@ export class Traffic implements ITraffic {
   isTheadRun: boolean = false;
   currentIndexLight: number;
 
+  dataBaseLocal: DataBaseLocal;
+
   constructor() {
     this.el = document.createElement("div");
     this.el.className = "traffic-div";
     this.el.id = "traffic-div";
     this.currentIndexLight = 0;
+    this.dataBaseLocal = new DataBaseLocal();
   }
 
   static inputElement() {
@@ -51,7 +54,7 @@ export class Traffic implements ITraffic {
 
   getTimeEnd(): number {
     let timeend = Traffic.timeStepMin;
-    const curLampa = getItemCurLampa();
+    const curLampa = this.dataBaseLocal.getItemCurLampa();
 
     if (curLampa) {
       timeend = curLampa.timeInterval;
@@ -80,7 +83,7 @@ export class Traffic implements ITraffic {
           }
         }
 
-        saveCurrentLamps({
+        this.dataBaseLocal.saveCurrentLamps({
           idLampa: this.currentIndexLight,
           backcolor: this.lamps[this.currentIndexLight].backcolor,
           timeInterval: timeend,

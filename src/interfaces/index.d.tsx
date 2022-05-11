@@ -1,3 +1,5 @@
+import { DataBaseLocal } from "../database";
+
 export interface IButton {
   el?: HTMLButtonElement;
   getElement?: HTMLButtonElement;
@@ -21,7 +23,7 @@ export interface ILampaMain {
   backcolor: string;
   timeInterval: number;
 }
-export interface ILampa extends ILampaMain{
+export interface ILampa extends ILampaMain {
   el: HTMLDivElement;
   divBase: HTMLDivElement;
   divLampa: HTMLDivElement;
@@ -44,7 +46,7 @@ export interface ITraffic {
   lamps: ILampa[];
   isTheadRun: boolean;
   currentIndexLight: number;
-
+  dataBaseLocal: DataBaseLocal;
   getElement: HTMLDivElement;
 
   appLampa: () => void;
@@ -69,4 +71,20 @@ export interface IMain {
   traffic: ITraffic;
   buttons: IButtons;
   getElement: HTMLDivElement;
+}
+
+export interface IDataBaseLocal {
+  saveCurrentLamps: (curLampa: ILampaMain) => void;
+  saveLampsTraffic: (lampsTraffic: ILampaMain[]) => void;
+  loadLampsTraffic: () => ILampaMain[];
+  getItemCurLampa: () => ILampaMain;
+}
+
+export interface IActions {
+  timerId: NodeJS.Timeout;
+  addLampaHandleClick: (trafficDiv: ITraffic) => void;
+  delLampaHandleClick: (trafficDiv: ITraffic) => void;
+  saveLampaHandleClick: (trafficDiv: ITraffic) => void;
+  loadLampaHandleClick: (trafficDiv: ITraffic) => void;
+  startLampaHandleClick: (trafficDiv: ITraffic) => void;
 }
