@@ -16,10 +16,12 @@ export function saveLampaHandleClick(trafficDiv: any) {
 
 export function loadLampaHandleClick(trafficDiv: any) {
   const lampsLoad = JSON.parse(localStorage.getItem("listLamps"));
-  trafficDiv.lamps = []
+  trafficDiv.lamps = [];
   Array.from(lampsLoad).forEach((item: Lampa) => {
-    console.log("item", item);
-    trafficDiv.appLampaNew(new Lampa(item.idLampa, item.backcolor, item.timeInterval))
+    // console.log("item", item);
+    trafficDiv.appLampaNew(
+      new Lampa(item.idLampa, trafficDiv, item.backcolor, item.timeInterval)
+    );
   });
 }
 

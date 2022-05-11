@@ -26,18 +26,17 @@ export class TrafficDiv {
   }
 
   public appLampa() {
-    const lampa = new Lampa(this.lamps.length);
-    this.appLampaNew(lampa)
+    const lampa = new Lampa(this.lamps.length, this);
+
+    this.appLampaNew(lampa);
     // this.lamps.push(lampa);
     // this.reDraw();
   }
 
-  public appLampaNew(lampa : Lampa ) {
-
+  public appLampaNew(lampa: Lampa) {
     this.lamps.push(lampa);
     this.reDraw();
   }
-
 
   public delLampa() {
     this.lamps.splice(this.lamps.length - 1, 1);
@@ -96,5 +95,19 @@ export class TrafficDiv {
         item.divLampa.style.opacity = "0.1";
       }
     });
+  }
+
+  onPauseTimer(cLampa: Lampa) {
+    // console.log("cLampa", cLampa);
+    // console.log("TrafficDiv", this);
+
+    if (this.currentIndexLight === cLampa.idLampa && this.isTheadRun) {
+      TrafficDiv.isPause = !TrafficDiv.isPause;
+      console.log(
+        `onMouseover - ${TrafficDiv.isPause ? "Pause" : "Start"} index = ${
+          cLampa.idLampa
+        }`
+      );
+    }
   }
 }

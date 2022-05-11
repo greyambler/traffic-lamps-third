@@ -1,3 +1,6 @@
+import { PropertyDiv } from "../property";
+import { TrafficDiv } from "../trafficDiv";
+
 export class Lampa {
   el: HTMLDivElement;
   public idLampa: number;
@@ -7,11 +10,19 @@ export class Lampa {
   public divBase: HTMLDivElement;
   public divLampa: HTMLDivElement;
 
-  constructor(idlampa: number, backcolor?: string, timeInterval?: number) {
+  traffic: TrafficDiv;
+
+  constructor(
+    idlampa: number,
+    traffic: TrafficDiv,
+    backcolor?: string,
+    timeInterval?: number
+  ) {
+    this.traffic = traffic;
     this.idLampa = idlampa;
     this.timeInterval = timeInterval ? timeInterval : 1;
     this.backcolor = backcolor ? backcolor : this.getColorNoStart(idlampa);
-    
+
     this.creatDivBase();
     this.creatDivLight();
     this.divBase.appendChild(this.divLampa);
@@ -19,8 +30,8 @@ export class Lampa {
   get getElement() {
     return this.divBase;
   }
-  static inputElement(idlampa: number) {
-    return new Lampa(idlampa).getElement;
+  static inputElement(idlampa: number, onPauseTimer: any) {
+    return new Lampa(idlampa, onPauseTimer).getElement;
   }
 
   creatDivBase(): void {
@@ -34,9 +45,9 @@ export class Lampa {
     this.divLampa.className = "lampa-light";
     this.divLampa.id = "lampa-light" + this.idLampa;
     this.divLampa.style.background = this.backcolor;
-    // this.divLampa?.addEventListener("click", () => this.showProperty());
+    this.divLampa?.addEventListener("click", () => this.showProperty());
 
-    // this.divLampa?.addEventListener("mouseover", () => this.onMouseover());
+    this.divLampa?.addEventListener("mouseover", () => this.onMouseover());
   }
 
   getColorNoStart(index: number): string {
@@ -61,5 +72,34 @@ export class Lampa {
       }
     }
     return color;
+  }
+
+  showProperty() {
+    const el_old = document.getElementsByClassName("property-div");
+    if (el_old) Array.from(el_old).forEach((item) => item.remove());
+
+    const el = document.getElementById("body-div");
+
+    el.append(PropertyDiv.inputElement(this));
+  }
+
+  updateFirst(event: Event) {
+    const colorIn = (event.target as HTMLInputElement).value;
+    this.backcolor = colorIn;
+    this.divLampa.style.background = colorIn;
+    // console.log(`event - ${event}`);
+  }
+
+  updateTime(event: Event) {
+    try {
+      const colorIn = (event.target as HTMLInputElement).value;
+      this.timeInterval = parseInt(colorIn);
+    } catch (error) {}
+    // console.log(`id - ${this.idLampa}, timeInterval - ${this.timeInterval}`);
+  }
+
+  onMouseover() {
+    this.traffic.onPauseTimer(this);
+    this.showProperty();
   }
 }

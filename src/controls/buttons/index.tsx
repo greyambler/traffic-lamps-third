@@ -5,13 +5,13 @@ import {
   saveLampaHandleClick,
   loadLampaHandleClick,
   startLampaHandleClick,
-} from "../../actions/buttonsAct";
+} from "../../actions/buttons";
 import { IButton } from "../../interfaces/index.d";
 import { TrafficDiv } from "../trafficDiv";
 
 export class ButtonsDiv {
   el: HTMLDivElement;
-  count: number;
+  // count: number;
 
   actionBtn: IButton[] = [
     {
@@ -31,7 +31,7 @@ export class ButtonsDiv {
 
   constructor(trafficDiv: TrafficDiv) {
     // console.log(`trafficDiv`, trafficDiv);
-    this.count = 0;
+    // this.count = 0;
     this.trafficDiv = trafficDiv;
     this.el = document.createElement("div");
     this.el.className = "buttot-div";

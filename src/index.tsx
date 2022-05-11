@@ -1,4 +1,4 @@
 import "./styles.css";
-import { HomePage } from "./components/homePage";
+import { HomePage } from "./pages/home/index";
 
 new HomePage();

@@ -1,6 +1,6 @@
-import { getRootDiv } from "../lib/utils";
-import { HeaderDiv } from "../controls/headerDiv";
-import { BodyDiv } from "../controls/body";
+import { getRootDiv } from "../../lib/utils";
+import { HeaderDiv } from "../../controls/header";
+import { BodyDiv } from "../../controls/main";
 
 export class HomePage {
   constructor() {
